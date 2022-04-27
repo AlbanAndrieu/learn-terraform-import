@@ -14,15 +14,18 @@ HashiCorp Learn.
 
 1. Run this docker command to create a container with the latest nginx image.
 
+See https://github.com/AlbanAndrieu/nabla-servers-symfony-sample
+
     ```shell
-    docker run --name hashicorp-learn --detach --publish 8080:80 nginx:latest
+    sudo docker-compose build --pull --no-cache
+    docker-compose up
     ```
 
-1. Verify container is running by running `docker ps` or visiting `0.0.0.0:8080`
+1. Verify container is running by running `docker ps` or visiting `0.0.0.0:80`
     in your web browser.
 
     ```shell
-    docker ps --filter "name=hashicorp-learn"
+    docker ps --filter "name=nabla-servers-symfony-sample_php_1"
     ```
 
 ### Import container resource
@@ -38,7 +41,7 @@ HashiCorp Learn.
 1. Import the container into Terraform state.
 
     ```shell
-    terraform import docker_container.web $(docker inspect -f {{.ID}} hashicorp-learn)
+    terraform import docker_container.web $(docker inspect -f {{.ID}} nabla-servers-symfony-sample_caddy_1)
     ```
 
 1. Now the container is in your terraform configuration's state.
@@ -93,11 +96,11 @@ HashiCorp Learn.
     ```hcl
     # docker_container.web:
     resource "docker_container" "web" {
-       name  = "hashicorp-learn"
+       name  = "nabla-servers-symfony-sample_php"
        image = "sha256:9beeba249f3ee158d3e495a6ac25c5667ae2de8a43ac2a8bfd2bf687a58c06c9"
 
        ports {
-           external = 8080
+           external = 80
            internal = 80
        }
     }
@@ -113,10 +116,10 @@ HashiCorp Learn.
 ### Verify that your infrastructure still works as expected
 
 ```shell
-$ docker ps --filter "name=hashicorp-learn"
+$ docker ps --filter "name=nabla-servers-symfony-sample_php"
 ```
 
-    You can revisit `0.0.0.0:8080` in your web browser to verify that it is
+    You can revisit `0.0.0.0:80` in your web browser to verify that it is
     still up. Also note the "Status" - the container has been up and running
     since it was created, so you know that it was not restarted when you
     imported it into Terraform.
@@ -150,7 +153,7 @@ $ docker ps --filter "name=hashicorp-learn"
 
     ```hcl
     resource "docker_container" "web" {
-      name  = "hashicorp-learn"
+      name  = "nabla-servers-symfony-sample_php"
       image = docker_image.nginx.latest
 
     # File truncated...
@@ -169,7 +172,7 @@ $ docker ps --filter "name=hashicorp-learn"
 
     ```hcl
     resource "docker_container" "web" {
-      name  = "hashicorp-learn"
+      name  = "nabla-servers-symfony-sample_php"
       image = "sha256:602e111c06b6934013578ad80554a074049c59441d9bcd963cb4a7feccede7a5"
 
       ports {
@@ -189,7 +192,7 @@ $ docker ps --filter "name=hashicorp-learn"
     `0.0.0.0:8081` in your web browser.
 
     ```shell
-    docker ps --filter "name=hashicorp-learn"
+    docker ps --filter "name=nabla-servers-symfony-sample_php"
     ```
 
 ### Destroy resources
@@ -204,5 +207,5 @@ $ docker ps --filter "name=hashicorp-learn"
 1. Run `docker ps` to validate that the container was destroyed.
 
     ```shell
-    docker ps --filter "name=hashicorp-learn"
+    docker ps --filter "name=nabla-servers-symfony-sample_php"
     ```

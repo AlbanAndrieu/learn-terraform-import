@@ -11,6 +11,20 @@ terraform {
   required_version = ">= 0.14"
 }
 
+#provider "docker" {
+#  host    = "npipe:////.//pipe//docker_engine"
+#}
 provider "docker" {
-  host    = "npipe:////.//pipe//docker_engine"
+  host = "unix:///var/run/docker.sock"
 }
+
+# Pulls the image
+#resource "docker_image" "ubuntu" {
+#  name = "ubuntu:latest"
+#}
+
+# Create a container
+#resource "docker_container" "foo" {
+#  image = docker_image.ubuntu.latest
+#  name  = "foo"
+#}
