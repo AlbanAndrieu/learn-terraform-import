@@ -2,6 +2,19 @@
 #
 # https://www.terraform.io/docs/providers/docker/index.html
 terraform {
+
+  #backend "local" {}
+  backend "remote" {
+    hostname = "app.terraform.io"
+    # The name of your Terraform Cloud organization.
+    organization = "nabla"
+
+    # The name of the Terraform Cloud workspace to store Terraform state files in.
+    workspaces {
+      name = "jusmundi"
+    }
+  }
+
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
@@ -11,9 +24,6 @@ terraform {
   required_version = ">= 0.14"
 }
 
-#provider "docker" {
-#  host    = "npipe:////.//pipe//docker_engine"
-#}
 provider "docker" {
   host = "unix:///var/run/docker.sock"
 }
