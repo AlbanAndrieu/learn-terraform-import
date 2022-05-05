@@ -209,3 +209,43 @@ $ docker ps --filter "name=nabla-servers-symfony-sample_php"
     ```shell
     docker ps --filter "name=nabla-servers-symfony-sample_php"
     ```
+
+### Update terraform documentation
+
+```bash
+terraform-docs .
+```
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.1.6 |
+| <a name="requirement_docker"></a> [docker](#requirement\_docker) | ~> 2.16 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_docker"></a> [docker](#provider\_docker) | 2.16.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [docker_container.web](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/container) | resource |
+| [docker_image.caddy](https://registry.terraform.io/providers/kreuzwerker/docker/latest/docs/resources/image) | resource |
+
+## Inputs
+
+No inputs.
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
